@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/route_manager.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:video_player/video_player.dart';
 import 'package:worker_app/Appurl/Appurl.dart';
 import 'package:worker_app/Appurl/user_model.dart';
 import 'package:worker_app/utils/Colors.dart';
@@ -17,6 +18,9 @@ class intro extends StatefulWidget {
 }
 
 class _introState extends State<intro> {
+  
+  late VideoPlayerController _controller;
+
   String? _mySelection = " 🇦🇺 English", _mySelection2;
   String? gender;
   var role;
@@ -222,9 +226,10 @@ class _introState extends State<intro> {
                                 Text(
                                   "Continue",
                                   style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 22),
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 22,
+                                  ),
                                 ),
                                 Icon(
                                   Icons.arrow_forward,
@@ -357,19 +362,25 @@ class _introState extends State<intro> {
                                   hint: _mySelection2 == null
                                       ? Padding(
                                           padding: const EdgeInsets.all(8.0),
-                                          child: Text("Select Cities / States",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 14,
-                                                  color: Colors.grey)),
+                                          child: Text(
+                                            "Select Cities / States",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 14,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
                                         )
                                       : Padding(
                                           padding: const EdgeInsets.all(8.0),
-                                          child: Text(_mySelection2!,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 14,
-                                                  color: Colors.grey)),
+                                          child: Text(
+                                            _mySelection2!,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 14,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
                                         ),
 
                                   items: <String>[
@@ -437,7 +448,8 @@ class _introState extends State<intro> {
                                     });
                                   },
                                   underline: DropdownButtonHideUnderline(
-                                      child: Container()),
+                                    child: Container(),
+                                  ),
                                 ),
                               ),
                             ),
@@ -470,9 +482,10 @@ class _introState extends State<intro> {
                                     Text(
                                       "Keep Going",
                                       style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 18),
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 18,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -533,79 +546,81 @@ class _introState extends State<intro> {
                                       ],
                                     ),
                                   ),
+
+                                  //!Video Player starts
+                                  //TODO: Add video player
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Stack(
                                       children: [
                                         Container(
-                                            height: height / 1.099,
-                                            width: width,
-                                            decoration: BoxDecoration(
-                                                color: AppColors.primary
-                                                    .withOpacity(.1)),
-                                            child: Center(
-                                              child: Container(
-                                                height: 50,
-                                                width: 50,
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: AppColors.primary,
-                                                ),
-                                                child: Icon(
-                                                  Icons.play_arrow,
-                                                  color: Colors.white,
-                                                ),
+                                          height: height / 1.099,
+                                          width: width,
+                                          decoration: BoxDecoration(
+                                            color: AppColors.primary
+                                                .withOpacity(.1),
+                                          ),
+                                          child: Center(
+                                            child: Container(
+                                              height: 50,
+                                              width: 50,
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: AppColors.primary,
                                               ),
-                                            )),
+                                              child: Icon(
+                                                Icons.play_arrow,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                                         Positioned(
-                                            top: height / 1.4,
-                                            left: width / 1.50,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Align(
-                                                alignment: Alignment.topRight,
-                                                child: InkWell(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      step1 = true;
-                                                      step2 = true;
-                                                      step3 = true;
-                                                      step4 = false;
-                                                      step5 = false;
-                                                      step6 = false;
-                                                    });
-                                                  },
-                                                  child: Container(
-                                                    height: height / 22,
-                                                    width: width / 4,
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8),
-                                                        color:
-                                                            AppColors.primary),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text(
-                                                          "Skip",
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              fontSize: 22),
-                                                        ),
-                                                      ],
-                                                    ),
+                                          top: height / 1.4,
+                                          left: width / 1.50,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Align(
+                                              alignment: Alignment.topRight,
+                                              child: InkWell(
+                                                onTap: () {
+                                                  setState(() {
+                                                    step1 = true;
+                                                    step2 = true;
+                                                    step3 = true;
+                                                    step4 = false;
+                                                    step5 = false;
+                                                    step6 = false;
+                                                  });
+                                                },
+                                                child: Container(
+                                                  height: height / 22,
+                                                  width: width / 4,
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                      color: AppColors.primary),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text(
+                                                        "Skip",
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            fontSize: 22),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
                                               ),
-                                            )),
+                                            ),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   )
